@@ -1,26 +1,111 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/* 1) Палитра (статична) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --mist: #c9d1c8; /* Туман */
+  --pine: #5b7065; /* Сосна */
+  --evergreen: #304040; /* Вечно-зелёный */
+  --forest: #04202c; /* Лес */
 }
 
+/* 2) Семантика (то, что реально используется) — светлая тема по умолчанию */
+:root {
+  --bg: var(--mist);
+  --fg: var(--forest);
+  --brand: var(--pine);
+  --accent: var(--evergreen);
+  --muted: color-mix(in oklab, var(--fg) 20%, white); /* опционально */
+}
+
+/* 2b) Семантика для тёмной темы (переназначаем только смысловые переменные) */
+:root[data-theme='dark'] {
+  --bg: var(--forest);
+  --fg: var(--mist);
+  --brand: var(--mist);
+  --accent: var(--pine);
+  --muted: color-mix(in oklab, var(--fg) 60%, black);
+}
+
+/* 3) Маппинг семантики в Tailwind-токены */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Делаем доступ к палитре напрямую (если нужно явно) */
+  --color-mist: var(--mist);
+  --color-pine: var(--pine);
+  --color-evergreen: var(--evergreen);
+  --color-forest: var(--forest);
+
+  /* А это — семантические токены, которые ты будешь использовать в утилитах */
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-primary: var(--brand);
+  --color-secondary: var(--accent);
+  --color-muted: var(--muted);
+
+  /* Шрифты/прочее при желании */
+  /* --font-sans: var(--font-geist-sans);
+     --font-mono: var(--font-geist-mono); */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* База документа (использует семантику) */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  padding: 0;
+}
+
+/* Типографика */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Ссылки */
+a {
+  text-decoration: none;
+}
+
+/* Медиа и списки */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(3rem);
+    opacity: 0.9;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
