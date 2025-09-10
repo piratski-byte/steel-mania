@@ -2,110 +2,40 @@
 
 /* 1) Палитра (статична) */
 :root {
-  --mist: #c9d1c8; /* Туман */
-  --pine: #5b7065; /* Сосна */
-  --evergreen: #304040; /* Вечно-зелёный */
-  --forest: #04202c; /* Лес */
+  --oceanic: #15232d; /* Океаник — основной холодный фон */
+  --firework: #f55449; /* Фейерверк — акцент/искры */
+  --ash: #8e7970; /* Серо-коричневый — нейтраль, фон/текст */
+  --onyx: #0f1f38; /* Оникс — глубокий фон */
 }
 
-/* 2) Семантика (то, что реально используется) — светлая тема по умолчанию */
+/* 2) Семантика (светлая тема по умолчанию) */
 :root {
-  --bg: var(--mist);
-  --fg: var(--forest);
-  --brand: var(--pine);
-  --accent: var(--evergreen);
-  --muted: color-mix(in oklab, var(--fg) 20%, white); /* опционально */
+  --bg: var(--oceanic);
+  --fg: var(--ash);
+  --brand: var(--firework);
+  --accent: var(--onyx);
+  --muted: color-mix(in oklab, var(--fg) 20%, white);
 }
 
-/* 2b) Семантика для тёмной темы (переназначаем только смысловые переменные) */
+/* 2b) Семантика для тёмной темы */
 :root[data-theme='dark'] {
-  --bg: var(--forest);
-  --fg: var(--mist);
-  --brand: var(--mist);
-  --accent: var(--pine);
+  --bg: var(--onyx);
+  --fg: var(--ash);
+  --brand: var(--firework);
+  --accent: var(--oceanic);
   --muted: color-mix(in oklab, var(--fg) 60%, black);
 }
 
-/* 3) Маппинг семантики в Tailwind-токены */
+/* 3) Маппинг в Tailwind-токены */
 @theme inline {
-  /* Делаем доступ к палитре напрямую (если нужно явно) */
-  --color-mist: var(--mist);
-  --color-pine: var(--pine);
-  --color-evergreen: var(--evergreen);
-  --color-forest: var(--forest);
+  --color-oceanic: var(--oceanic);
+  --color-firework: var(--firework);
+  --color-ash: var(--ash);
+  --color-onyx: var(--onyx);
 
-  /* А это — семантические токены, которые ты будешь использовать в утилитах */
   --color-background: var(--bg);
   --color-foreground: var(--fg);
   --color-primary: var(--brand);
   --color-secondary: var(--accent);
   --color-muted: var(--muted);
-
-  /* Шрифты/прочее при желании */
-  /* --font-sans: var(--font-geist-sans);
-     --font-mono: var(--font-geist-mono); */
-}
-
-/* База документа (использует семантику) */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--bg);
-  color: var(--fg);
-  margin: 0;
-  padding: 0;
-}
-
-/* Типографика */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: bold;
-  line-height: 1.2;
-}
-
-p {
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-/* Ссылки */
-a {
-  text-decoration: none;
-}
-
-/* Медиа и списки */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-ul {
-  padding-left: 1.25rem;
-  list-style: disc;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes slideUp {
-  from {
-    transform: translateY(3rem);
-    opacity: 0.9;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
