@@ -29,7 +29,10 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-20 bg-background/85 text-foreground">
+    <section
+      id="features"
+      className="py-20 bg-background/85 text-foreground scroll-mt-20"
+    >
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-muted">
           Наши преимущества

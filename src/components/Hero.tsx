@@ -2,7 +2,7 @@
 
 import heroImage from '@/assets/images/hero-image.jpg';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import { ArrowDown, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -33,7 +33,7 @@ export default function Hero() {
     if (!showForm) return;
 
     const handleScroll = () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 40) {
         setShowForm(false);
       }
     };
@@ -41,6 +41,13 @@ export default function Hero() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [showForm]);
+
+  const scrollToServices = () => {
+    const el = document.getElementById('services');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <section
@@ -141,6 +148,21 @@ export default function Hero() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Стрелочка "вниз" */}
+      <motion.button
+        onClick={scrollToServices}
+        initial={{ y: 0 }}
+        animate={{ y: [0, 100, 0] }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="fixed bottom-6 right-6 p-3 rounded-full bg-background/85 text-background shadow-lg hover:bg-primary transition cursor-pointer"
+      >
+        <ArrowDown className="w-6 h-6 text-muted" />
+      </motion.button>
 
       {/* Уведомление */}
       <AnimatePresence>

@@ -3,7 +3,7 @@ import aboutImage from '@/assets/images/about-image.jpg';
 
 export default function About() {
   return (
-    <section id="about" className="relative text-foreground py-20">
+    <section id="about" className="relative text-foreground py-20 scroll-mt-20">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         {/* Текст */}
         <div>

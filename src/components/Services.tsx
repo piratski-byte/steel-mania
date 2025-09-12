@@ -34,7 +34,7 @@ export default function Services() {
 
   return (
     <section
-      className="pb-16 pt-8 bg-background/85 text-foreground"
+      className="pb-16 pt-8 bg-background/85 text-foreground scroll-mt-20"
       id="services"
     >
       <div className="max-w-6xl mx-auto px-6">
