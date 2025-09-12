@@ -7,11 +7,16 @@ const Header = () => {
   const [open, setOpen] = useState(false);
 
   const navItems = [
+    {
+      href: '#hero',
+      label: 'Оставить заявку',
+      styles: `bg-primary px-3 py-1 rounded-2xl text-background font-semibold
+                  hover:bg-onyx/40 hover:text-foreground
+                  transition-colors duration-250 cursor-pointer`,
+    },
+    { href: '#services', label: 'Услуги' },
     { href: '#about', label: 'О нас' },
-    { href: '#stats', label: 'Факты' },
-    { href: '#testimonials', label: 'Отзывы' },
-    { href: '#how', label: 'Как помочь' },
-    { href: '#contact', label: 'Оставить заявку' },
+    { href: '#features', label: 'Наши преимущества' },
   ];
 
   // Блокируем скролл body, когда открыто меню
@@ -39,18 +44,18 @@ const Header = () => {
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Логотип */}
         <h1 className="text-xl font-bold text-primary cursor-default flex items-center gap-2">
-          <a href="#" className="hover:text-primary transition">
-            YourForest
+          <a href="#" className="hover:text-primary text-2xl transition">
+            Steel Mania
           </a>
         </h1>
 
         {/* Навигация (Desktop) */}
-        <nav className="hidden md:flex gap-6 text-foreground font-medium">
+        <nav className="hidden md:flex md:justify-center gap-6 text-foreground font-medium">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="hover:text-primary transition"
+              className={`hover:text-primary flex justify-center items-center transition ${item.styles}`}
             >
               {item.label}
             </a>
@@ -71,7 +76,7 @@ const Header = () => {
       {open && (
         <div
           className={`
-            fixed top-0 left-0 w-full h-screen z-[100] 
+            fixed top-0 left-0 w-full h-screen z-[100]
             bg-forest/50 backdrop-blur-md
             flex items-center justify-center
             transition-opacity duration-200

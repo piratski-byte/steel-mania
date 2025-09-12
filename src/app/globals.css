@@ -4,7 +4,7 @@
 :root {
   --oceanic: #15232d; /* Океаник — основной холодный фон */
   --firework: #f55449; /* Фейерверк — акцент/искры */
-  --ash: #8e7970; /* Серо-коричневый — нейтраль, фон/текст */
+  --ash: #a69f9d; /* Серо-коричневый — нейтраль, фон/текст */
   --onyx: #0f1f38; /* Оникс — глубокий фон */
 }
 
@@ -38,4 +38,8 @@
   --color-primary: var(--brand);
   --color-secondary: var(--accent);
   --color-muted: var(--muted);
+}
+
+html {
+  scroll-behavior: smooth;
 }

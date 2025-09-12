@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import HowToHelp from '@/components/HowToHelp';
+import Services from '@/components/Services';
 import Stats from '@/components/Stats';
 import Testimonials from '@/components/Testimonials';
 
@@ -14,9 +15,10 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
+        <Services />
         <About />
-        <Stats />
         <Features />
+        <Stats />
         <Testimonials />
         <HowToHelp />
         <ContactForm />

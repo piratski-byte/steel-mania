@@ -65,7 +65,7 @@ export default function HowToHelp() {
                 refs.current[idx] = el;
               }}
               data-index={idx}
-              className={`flex flex-col items-center p-6 rounded-xl shadow-md border bg-background/80 
+              className={`flex flex-col items-center p-6 rounded-xl shadow-md border bg-background/80
                           transition-all duration-700 ease-out
                           ${
                             visible[idx]
