@@ -9,44 +9,43 @@ import { useEffect, useState } from 'react';
 export default function Hero() {
   const [showForm, setShowForm] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     setShowForm(false);
-
-    // обновляем URL
     window.history.pushState({}, '', '/');
 
-    // скроллим к секции hero
     const heroSection = document.getElementById('hero');
-    if (heroSection) {
-      heroSection.scrollIntoView();
-    }
+    if (heroSection) heroSection.scrollIntoView();
 
-    // показываем уведомление
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
   };
 
   useEffect(() => {
+    setScrollY(window.scrollY);
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
     if (!showForm) return;
-
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setShowForm(false);
-      }
+      setScrollY(window.scrollY);
+      if (window.scrollY > 40) setShowForm(false);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [showForm]);
 
+  const opacity = Math.max(0, 1 - scrollY / 400);
+
   const scrollToServices = () => {
     const el = document.getElementById('services');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
@@ -149,20 +148,56 @@ export default function Hero() {
         </AnimatePresence>
       </div>
 
-      {/* Стрелочка "вниз" */}
-      <motion.button
+      <div
+        className={`group fixed z-100 right-[3rem] bottom-[2rem] w-14 h-14 bg-secondary animate-bounce
+        text-muted  px-[0.75rem] flex justify-start items-center rounded-full hover:bg-primary cursor-pointer
+        gap-[1rem] overflow-hidden hover:w-40 transition-all duration-300 whitespace-nowrap
+        hover:animate-none [animation-duration:1.5s] ${
+          opacity === 0
+            ? 'invisible pointer-events-none'
+            : 'visible pointer-events-auto'
+        }`}
         onClick={scrollToServices}
-        initial={{ y: 0 }}
-        animate={{ y: [0, 100, 0] }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="fixed bottom-6 right-6 p-3 rounded-full bg-background/85 text-background shadow-lg hover:bg-primary transition cursor-pointer"
+        style={{ opacity }}
       >
-        <ArrowDown className="w-6 h-6 text-muted" />
-      </motion.button>
+        <ArrowDown className="w-8 h-8 shrink-0" />
+        <span className="">К услугам</span>
+      </div>
+
+      {/* <motion.button
+        onClick={scrollToServices}
+        onMouseEnter={() => setIsArrowOpen(true)}
+        onMouseLeave={() => setIsArrowOpen(false)}
+        initial={{ opacity: 1 }}
+        animate={{ opacity }}
+        transition={{ duration: 0.2 }}
+        className="group fixed bottom-6 right-12 flex items-center
+             gap-[0.75rem] hover:pr-[1rem] pr-3 py-3 rounded-full bg-background/85
+             text-muted shadow-lg hover:bg-primary hover:text-muted
+             transition-all duration-300 cursor-pointer overflow-hidden"
+      >
+        <motion.div
+          initial={{ y: 0 }}
+          animate={{ y: [-4, 4, -4] }}
+          transition={{
+            duration: 1.25,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          className="pl-3"
+        >
+          <ArrowDown className="w-6 h-6 shrink-0" />
+        </motion.div>
+
+        <motion.span
+          initial={{ opacity: 0, x: 10 }}
+          whileHover={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className="ml-2 whitespace-nowrap"
+        >
+          К услугам
+        </motion.span>
+      </motion.button> */}
 
       {/* Уведомление */}
       <AnimatePresence>
@@ -172,7 +207,7 @@ export default function Hero() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed flex gap-2 bottom-4 right-20 bg-secondary text-muted px-6 py-3 rounded-lg shadow-lg font-medium z-100"
+            className="fixed flex gap-2 bottom-4 right-28 bg-secondary text-muted px-6 py-3 rounded-lg shadow-lg font-medium z-100"
           >
             <CheckCircle className="w-5 h-5" />
             Заявка отправлена!

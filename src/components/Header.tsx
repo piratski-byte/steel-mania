@@ -10,7 +10,7 @@ const Header = () => {
     {
       href: '#hero',
       label: 'Оставить заявку',
-      styles: `bg-primary px-3 py-1 rounded-2xl text-background font-semibold
+      styles: `bg-primary px-3 py-1.5 rounded-2xl text-background font-semibold
                   hover:bg-onyx/40 hover:text-foreground
                   transition-colors duration-250 cursor-pointer`,
     },
