@@ -17,6 +17,7 @@ const Header = () => {
     { href: '#services', label: 'Услуги' },
     { href: '#about', label: 'О нас' },
     { href: '#features', label: 'Наши преимущества' },
+    { href: '#testimonials', label: 'Отзывы' },
   ];
 
   // Блокируем скролл body, когда открыто меню

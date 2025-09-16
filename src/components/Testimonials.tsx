@@ -17,23 +17,23 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: 'Иван Иванов',
-    role: 'Волонтер',
-    text: 'Высадка лесов изменила мой взгляд на природу. Рекомендую участвовать всем!',
+    name: 'Сергей Кузнецов',
+    role: 'Частный заказчик',
+    text: 'Заказывал сварку ворот и калитки. Сделали быстро, аккуратно и надёжно. Работой полностью доволен!',
     image: person1,
   },
   {
     id: 2,
-    name: 'Мария Петрова',
-    role: 'Эколог',
-    text: 'Приятно видеть, как люди объединяются для сохранения лесов.',
+    name: 'Анна Лебедева',
+    role: 'Владелица кафе',
+    text: 'Ребята сварили металлическую лестницу и перила. Качество отличное, всё в срок и без лишних разговоров.',
     image: person2,
   },
   {
     id: 3,
-    name: 'Алексей Смирнов',
-    role: 'Волонтер',
-    text: 'Каждое дерево важно! Участвовать легко и приятно.',
+    name: 'Игорь Смирнов',
+    role: 'Директор ООО "СтройГрупп"',
+    text: 'Нужно было изготовить металлоконструкции для склада. Команда справилась на отлично, рекомендую партнёрам!',
     image: person3,
   },
 ];
@@ -68,8 +68,14 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="py-16 bg-mist">
+    <section
+      id="testimonials"
+      className="relative text-foreground py-20 scroll-mt-20"
+    >
       <div className="max-w-5xl mx-auto px-4 space-y-12">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary">
+          Отзывы клиентов
+        </h2>
         {testimonials.map((t, idx) => {
           const isEven = idx % 2 === 0;
           return (
@@ -87,17 +93,17 @@ export default function Testimonials() {
                           }
                           ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
             >
-              <div className="w-32 h-32 flex-shrink-0 rounded-full overflow-hidden">
+              <div className="w-32 h-32 flex-shrink-0 rounded-full overflow-hidden shadow-md">
                 <Image
                   src={t.image}
                   alt={t.name}
                   className="object-cover w-full h-full"
                 />
               </div>
-              <div className="bg-background/80 p-6 rounded-lg shadow-md flex-1">
-                <p className="mb-4">{t.text}</p>
-                <h4 className="font-bold">{t.name}</h4>
-                <span className="text-muted">{t.role}</span>
+              <div className="bg-background/90 p-6 rounded-lg shadow-lg flex-1">
+                <p className="mb-4 italic">“{t.text}”</p>
+                <h4 className="font-bold text-muted">{t.name}</h4>
+                <span className="text-sm opacity-70">{t.role}</span>
               </div>
             </div>
           );

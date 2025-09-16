@@ -1,30 +1,30 @@
 'use client';
 
-import { TreePine, HandHeart, Users } from 'lucide-react'; // иконки lucide
+import { ClipboardCheck, Hammer, Truck } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const steps = [
   {
     id: 1,
-    icon: <Users className="w-10 h-10 text-primary" />,
-    title: 'Присоединяйся',
-    text: 'Зарегистрируйся и стань частью сообщества волонтёров.',
+    icon: <ClipboardCheck className="w-10 h-10 text-primary" />,
+    title: 'Заявка',
+    text: 'Вы оставляете заявку на сайте или звоните нам напрямую.',
   },
   {
     id: 2,
-    icon: <HandHeart className="w-10 h-10 text-primary" />,
-    title: 'Поддержи',
-    text: 'Выбери удобный способ помочь: посадка деревьев или донат.',
+    icon: <Hammer className="w-10 h-10 text-primary" />,
+    title: 'Расчёт и работы',
+    text: 'Мы делаем расчёт, согласовываем детали и выполняем сварочные работы.',
   },
   {
     id: 3,
-    icon: <TreePine className="w-10 h-10 text-primary" />,
-    title: 'Посади лес',
-    text: 'Выезжай на мероприятия и вноси свой вклад в будущее планеты.',
+    icon: <Truck className="w-10 h-10 text-primary" />,
+    title: 'Сдача проекта',
+    text: 'Сдаём готовую конструкцию, даём гарантию и при необходимости доставляем.',
   },
 ];
 
-export default function HowToHelp() {
+export default function WorkProcess() {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
   const [visible, setVisible] = useState<boolean[]>(
     Array(steps.length).fill(false)
@@ -54,9 +54,9 @@ export default function HowToHelp() {
   }, []);
 
   return (
-    <section id="how" className="bg-evergreen text-mist py-20">
+    <section id="process" className="mt-20 bg-background/85 text-muted py-20">
       <div className="max-w-5xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-12">Как нам помочь</h2>
+        <h2 className="text-3xl font-bold mb-12">Как мы работаем</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((step, idx) => (
             <div
@@ -65,7 +65,7 @@ export default function HowToHelp() {
                 refs.current[idx] = el;
               }}
               data-index={idx}
-              className={`flex flex-col items-center p-6 rounded-xl shadow-md border bg-background/80
+              className={`text-center p-6 rounded-xl border border-foreground/20 bg-onyx/40 backdrop-blur-sm hover:shadow-xl cursor-default flex flex-col items-center shadow-md
                           transition-all duration-700 ease-out
                           ${
                             visible[idx]
@@ -74,10 +74,8 @@ export default function HowToHelp() {
                           }`}
             >
               <div className="mb-4">{step.icon}</div>
-              <h3 className="text-xl font-semibold mb-2 text-primary">
-                {step.title}
-              </h3>
-              <p className="text-primary">{step.text}</p>
+              <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+              <p className="text-foreground">{step.text}</p>
             </div>
           ))}
         </div>
