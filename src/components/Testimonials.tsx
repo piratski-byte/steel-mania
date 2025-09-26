@@ -85,7 +85,7 @@ export default function Testimonials() {
                 refs.current[idx] = el;
               }}
               data-index={idx}
-              className={`flex flex-col md:flex-row items-center gap-6 transition-all duration-700 ease-out 
+              className={`flex flex-col md:flex-row items-center gap-6 transition-all duration-700 ease-out
                           ${
                             visible[idx]
                               ? 'opacity-100 translate-y-0'

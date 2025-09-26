@@ -1,10 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import FormContext from '@/context/FormContext';
 import { Menu, X } from 'lucide-react';
+import { useContext, useEffect, useState } from 'react';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const form = useContext(FormContext);
+  if (!form) return null;
 
   const navItems = [
     {
@@ -13,11 +16,31 @@ const Header = () => {
       styles: `bg-primary px-3 py-1.5 rounded-2xl text-background font-semibold
                   hover:bg-onyx/40 hover:text-foreground
                   transition-colors duration-250 cursor-pointer`,
+      onClick: () => {
+        const hero = document.getElementById('hero');
+
+        console.log(hero);
+        if (!hero) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) {
+              form.setShowForm(true);
+              observer.disconnect();
+            }
+          },
+          { threshold: 1 } // почти полностью в зоне видимости
+        );
+
+        observer.observe(hero);
+
+        return () => observer.disconnect();
+      },
     },
     { href: '#services', label: 'Услуги' },
     { href: '#about', label: 'О нас' },
-    { href: '#features', label: 'Наши преимущества' },
     { href: '#testimonials', label: 'Отзывы' },
+    { href: '#contact', label: 'Как с нами связаться' },
   ];
 
   // Блокируем скролл body, когда открыто меню
@@ -57,6 +80,7 @@ const Header = () => {
               key={item.href}
               href={item.href}
               className={`hover:text-primary flex justify-center items-center transition ${item.styles}`}
+              onClick={item.onClick}
             >
               {item.label}
             </a>

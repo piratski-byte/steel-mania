@@ -1,20 +1,23 @@
 'use client';
 
 import heroImage from '@/assets/images/hero-image.jpg';
+import FormContext from '@/context/FormContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDown, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export default function Hero() {
-  const [showForm, setShowForm] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+
+  const form = useContext(FormContext);
+  if (!form) return null;
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    setShowForm(false);
+    form.setShowForm(false);
     window.history.pushState({}, '', '/');
 
     const heroSection = document.getElementById('hero');
@@ -32,14 +35,14 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (!showForm) return;
+    if (!form.showForm) return;
     const handleScroll = () => {
       setScrollY(window.scrollY);
-      if (window.scrollY > 40) setShowForm(false);
+      if (window.scrollY > 40) form.setShowForm(false);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [showForm]);
+  }, [form.showForm]);
 
   const opacity = Math.max(0, 1 - scrollY / 400);
 
@@ -73,7 +76,7 @@ export default function Hero() {
       {/* Контент */}
       <div className="max-w-3xl px-6">
         <AnimatePresence mode="wait">
-          {!showForm ? (
+          {!form.showForm ? (
             <motion.div
               key="slogan"
               initial={{ y: -200, opacity: 0 }}
@@ -93,7 +96,7 @@ export default function Hero() {
                 качество в каждом шве.
               </p>
               <button
-                onClick={() => setShowForm(true)}
+                onClick={() => form.setShowForm(true)}
                 className="bg-primary px-6 py-3 rounded-md font-semibold
                   hover:bg-secondary hover:text-foreground
                   transition-colors duration-250 cursor-pointer"
@@ -128,7 +131,7 @@ export default function Hero() {
                   className="w-full p-3 rounded-lg border border-foreground bg-background/80 text-foreground"
                 />
                 <textarea
-                  placeholder="Описание"
+                  placeholder="Кратко опишите задачу"
                   rows={3}
                   className="w-full p-3 rounded-lg border border-foreground bg-background/80 text-foreground"
                 />
